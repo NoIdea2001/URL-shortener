@@ -1,23 +1,36 @@
-function urlPostReq(link) {
-  fetch("http://localhost:8001/url/", {
-    method: "POST",
-    body: JSON.stringify(link),
-  }).then((res) => res.json())
-  .then(data=
-    
-  )
-}
+import { useState } from "react";
 
-function formAction(e) {
-  e.preventDefault();
-  urlPostReq(e[0].target.value);
-}
+
 
 function App() {
+  const [id,setId] = useState("")
+
+  
+  function urlPostReq(link) {
+    console.log(link)
+    fetch("http://localhost:8001/url/", {
+      method: "POST",
+      headers: {  
+        "Content-Type": "application/json", // specify the content type   
+      }, 
+      body: JSON.stringify({ url: link }),
+    }).then((res) => res.json())
+    .then(data=>
+      setId(data.id)
+    )
+  }
+  
+  async function formAction(e) {
+    e.preventDefault();
+    console.log(e.target[0].value);
+    await urlPostReq(e.target[0].value);
+  }
+
+
   return (
     <>
       <div>
-        <form action={formAction}>
+        <form onSubmit={formAction}>
           <input
             type="text"
             placeholder="Paste here"
@@ -25,7 +38,7 @@ function App() {
           />
           <button>Shorten URL</button>
         </form>
-        <div></div>
+        <div>{id==""?"":<a href={`http://localhost:8001/url/${id}`}>`http://localhost:8001/url/{id}`</a>}</div>
       </div>
     </>
   );

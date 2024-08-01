@@ -5,6 +5,7 @@ const urlRoute = require('./routes/url');
 const staticRoute = require('./routes/staticRouter')
 const URL = require("./models/url")
 const bodyParser = require('body-parser')
+const cors = require('cors');  
 
 const app = express();
 const PORT = 8001;
@@ -19,6 +20,9 @@ app.set("views",path.resolve("./views"));
 
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended:true}));
+app.use(cors({  
+    origin: '*' // Allow requests from this origin  
+})); 
 
 app.use("/url",urlRoute);
 

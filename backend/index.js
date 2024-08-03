@@ -43,6 +43,9 @@ app.get('/url/:shortId',async (req,res)=>{
                 timestamp: Date.now()},
         },
     });
+    if (!entry) {
+         return res.render('notFound')
+    }
     res.redirect(entry.redirectURL);
 });
 

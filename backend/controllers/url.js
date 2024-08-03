@@ -10,6 +10,10 @@ async function handleGenerateNewShortURL(req,res){
         return res.status(400).json({error:'url is required'})
     }
     const shortId = generateShortId(5);
+    const urlRep = await findLinkRepetion(body)
+    if (urlRep) {
+        return res.json({id : urlRep.shortId})
+    }
     await URL.create({
         shortId: shortId,
         redirectURL: body.url,
@@ -24,5 +28,11 @@ async function handleAnalytics(req,res){
     const result = await URL.findOne({shortId});
     return res.json({totalClicks: result.visitHistory.length , analytics: result.visitHistory,})
 }
+
+async function findLinkRepetion(body){
+    const urlRep = await URL.findOne({redirectURL: body.url})
+    return urlRep;
+}
+
 
 module.exports = {handleGenerateNewShortURL,handleAnalytics}

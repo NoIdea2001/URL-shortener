@@ -1,9 +1,9 @@
 const express = require('express');
 const {handleGenerateNewShortURL,handleAnalytics} = require('../controllers/url');
-
+const {ensureAuthenticated} = require('../middlewares/auth')
 const router = express.Router();
 
-router.post('/',handleGenerateNewShortURL);
+router.post('/',ensureAuthenticated,handleGenerateNewShortURL);
 
 router.get('/analytics/:shortId',handleAnalytics);
 

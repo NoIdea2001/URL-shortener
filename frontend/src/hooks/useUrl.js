@@ -1,13 +1,21 @@
 import { useState } from "react";
+import { handleError } from "../pages/util";
+
+
 export const useUrl = () => {
   const [id, setId] = useState("");
 
   const urlPostReq = async (link) => {
     try {
-      const response = await fetch("http://localhost:8001/url/", {
+      const token = localStorage.getItem("token")
+      if (!token){
+        handleError("Login Required")
+      }
+      const response = await fetch("http://localhost:9090/url/", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json", // specify the content type
+          "token": `Bearer ${token}`,
+          "Content-Type": "application/json", // specify the content 
         },
         body: JSON.stringify({ url: link }),
       });

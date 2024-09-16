@@ -11,9 +11,10 @@ require('dotenv').config()
 
 const app = express();
 const PORT = process.env.PORT
-const allowedIPs = process.env.ALLOWIP 
+const allowedIPs = process.env.ALLOWIP
+const mongoDBkey  = process.env.MONGO_KEY
 
-connect("mongodb+srv://saumyabhaintwal:saumya2004@cluster0.cddr5tl.mongodb.net/shortUrl?retryWrites=true&w=majority&appName=Cluster0")
+connect()
 .then(()=>{
     console.log("Connected to mongoDB");
 })

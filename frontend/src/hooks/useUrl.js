@@ -11,11 +11,13 @@ export const useUrl = () => {
       if (!token){
         handleError("Login Required")
       }
-      const response = await fetch("http://localhost:9090/url/", {
+      console.log(`${import.meta.env.VITE_BACKEND_LINK}url/`);
+      
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_LINK}url/`, {
         method: "POST",
         headers: {
           "token": `Bearer ${token}`,
-          "Content-Type": "application/json", // specify the content 
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ url: link }),
       });

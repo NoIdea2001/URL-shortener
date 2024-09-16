@@ -26,7 +26,7 @@ function Login({setToken,setAuthenticated}) {
     }
     try {
       loginInfo.email = loginInfo.email.toLowerCase();
-      const url = "http://localhost:9090/auth/login/";
+      const url =  `${import.meta.env.VITE_BACKEND_LINK}auth/login/`;
       const response = await fetch(url, {
         method: "post",
         headers: {

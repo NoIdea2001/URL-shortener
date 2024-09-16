@@ -26,7 +26,7 @@ function Signup() {
       return handleError("Name Email and Password are Required");
     }
     try {
-      const url = "http://localhost:9090/auth/signup/";
+      const url = `${import.meta.env.VITE_BACKEND_LINK}auth/signup/`;
       const response = await fetch(url, {
         method: "post",
         headers: {

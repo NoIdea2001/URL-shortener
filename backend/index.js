@@ -14,7 +14,7 @@ const PORT = process.env.PORT
 const allowedIPs = process.env.ALLOWIP
 const mongoDBkey  = process.env.MONGO_KEY
 
-connect()
+connect(mongoDBkey)
 .then(()=>{
     console.log("Connected to mongoDB");
 })
@@ -24,7 +24,7 @@ app.set("views",path.resolve("./views"))
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(cors({  
-    origin: allowedIPs
+    origin: `${allowedIPs}`
 })); 
 
 app.use("/url",urlRoute);

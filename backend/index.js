@@ -11,6 +11,7 @@ require('dotenv').config()
 
 const app = express();
 const PORT = process.env.PORT
+const allowedIPs = process.env.ALLOWIP 
 
 connect("mongodb+srv://saumyabhaintwal:saumya2004@cluster0.cddr5tl.mongodb.net/shortUrl?retryWrites=true&w=majority&appName=Cluster0")
 .then(()=>{
@@ -22,7 +23,7 @@ app.set("views",path.resolve("./views"))
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(cors({  
-    origin: '*' // Allow requests from this origin  
+    origin: allowedIPs
 })); 
 
 app.use("/url",urlRoute);

@@ -18,6 +18,9 @@ connect(mongoDBkey)
 .then(()=>{
     console.log("Connected to mongoDB");
 })
+.catch((err)=>{
+    console.log(err);
+})
 
 app.set("view engine","ejs");
 app.set("views",path.resolve("./views"))
@@ -36,14 +39,26 @@ app.get('/test',async (req,res)=>{
     return res.render('home', {urls: allURLs,});
 });
 
-app.get('/url/:shortId',async (req,res)=>{
+app.get('/:shortId',async (req,res)=>{
     shortId = req.params.shortId;
+    const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+    const IPlookUp = await fetch(`http://ip-api.com/json/${ip}`).then((res) => res.json());
+    const location = {
+        city: IPlookUp?.city,
+        region: IPlookUp?.regionName,
+        country: IPlookUp?.country,
+        zip: IPlookUp?.zip,
+    };
+
     const entry = await URL.findOneAndUpdate({
         shortId
     },{
         $push: {
             visitHistory: {
-                timestamp: Date.now()},
+                timestamp: Date.now(),
+                ipaddress: ip,
+                location: location,
+            },
         },
     });
     if (!entry) {

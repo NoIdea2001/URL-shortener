@@ -1,9 +1,9 @@
-<!DOCTYPE html>  
-<html lang="en">  
-<head>  
+<!DOCTYPE html>
+<html>
+<head>
     <meta charset="UTF-8">  
     <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-    <title>Document</title>  
+    <title>URL Shortener</title>  
 </head>  
 <body>  
     <div>  
@@ -16,7 +16,7 @@
     <h1>All Shortened URLs</h1>  
     <ul>  
         <% urls.forEach(url => { %>  
-            <li><a href="/url/<%= url.shortId %>"><%= url.redirectURL %></a></li>  
+            <li><a href="/<%= url.shortId %>">http://localhost:3000/<%= url.shortId %></a> => <a href="/<%= url.shortId %>"><%= url.redirectURL %></a></li>  
         <% }) %>  
     </ul>  
 </body>  

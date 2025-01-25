@@ -42,7 +42,9 @@ app.get('/test',async (req,res)=>{
 app.get('/:shortId',async (req,res)=>{
     shortId = req.params.shortId;
     const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+    console.log(ip);
     const IPlookUp = await fetch(`http://ip-api.com/json/${ip}`).then((res) => res.json());
+    console.log(IPlookUp);
     const location = {
         city: IPlookUp?.city,
         region: IPlookUp?.regionName,

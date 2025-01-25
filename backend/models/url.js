@@ -24,6 +24,8 @@ const urlSchema = new mongoose.Schema(
           region: { type: String },
           country: { type: String },
           zip: { type: String },
+          latitude: { type: Number },
+          longitude: { type: Number },
         },
       },
     ],

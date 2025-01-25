@@ -49,6 +49,8 @@ app.get('/:shortId',async (req,res)=>{
         region: IPlookUp?.regionName,
         country: IPlookUp?.country,
         zip: IPlookUp?.zip,
+        latitude: IPlookUp?.lat,
+        longitude: IPlookUp?.lon,
     };
 
     const entry = await URL.findOneAndUpdate({
